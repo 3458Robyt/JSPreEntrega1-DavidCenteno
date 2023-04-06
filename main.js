@@ -1,30 +1,23 @@
-let passwordR = '';
-const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+{}|:"<>?-=[];,./';
-let lengthpassword=parseInt(prompt("Ingrese la longitud que desea para la contraseña"));
-// let lengthpassword=8;
-
-if (lengthpassword.toString.length<6) {
-    lengthpassword=parseInt(prompt("Ingrese una longitud de contraseña mas grande"));
-} 
-
-function isStrongPassword(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]$/;
-    return regex.test(password);
-  }
-
-// Comprobar contraseña
-if (isStrongPassword(passwordR)) {
-  alert("Esta es su contraseña: "+passwordR);
-} else {
-  console.log("Aqui estamos probando");
-  // while (!isStrongPassword(passwordR)) {
-    
-  //   passwordR='';
-
-  //   for (let i = 0; i < lengthpassword; i++) {
-  //     const index = Math.floor(Math.random() * chars.length);
-  //     passwordR += chars[index];
-
-  //   }
-  // }
+//Comprobar la seguridad de la contraseña con regex
+function isStrongPassword(contraseña) {
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
+  return regex.test(contraseña);
 }
+
+function generarContraseña(length) {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|;:<>,.?/~';
+  let contraseña = '';
+  
+// Genera una contraseña aletoria hasta que una sea aprobada por la funcoin isStrongPassword
+do {
+  for (let i = 0; i < length; i++) {
+    const index = Math.floor(Math.random() * chars.length);
+    contraseña += chars[index];
+  }
+} while (!isStrongPassword(contraseña));
+  //   Devuelve la contraseña generada
+    alert(contraseña);
+}
+
+
+generarContraseña(prompt("Ingrese el largo de la contraseña, con un minimo de 8 caracteres de largo"));
